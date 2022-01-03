@@ -4,3 +4,4 @@ Dockerfile
 build/
 .idea/
 .vscode/
+.github/
