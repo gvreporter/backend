@@ -6,7 +6,7 @@ const plugin: FastifyPluginAsync = async (server, opts: FastifyPluginOptions) =>
 }
 
 const getAllArticles: RouteHandlerMethod = async (request, reply) => {
-    const [ articles, count ] = await Article.findAndCount();
+    const [ articles, count ] = await Article.findAndCount({ relations: ['author'] });
 
     return {
         data: articles,
