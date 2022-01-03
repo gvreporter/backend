@@ -1,4 +1,5 @@
 import "reflect-metadata";
+require('dotenv').config();
 import {createConnection} from "typeorm";
 import Fastify from 'fastify';
 import articles from './routes/articles';

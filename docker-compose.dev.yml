@@ -10,4 +10,3 @@ services:
       MYSQL_USER: "server"
       MYSQL_PASSWORD: "gvreporter"
       MYSQL_DATABASE: "gvreporter"
-
