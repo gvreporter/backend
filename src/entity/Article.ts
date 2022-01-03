@@ -1,5 +1,5 @@
 import slugify from 'slugify';
-import {AfterInsert, AfterLoad, BaseEntity, BeforeInsert, BeforeUpdate, Column, Entity, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
+import {AfterInsert, AfterLoad, BaseEntity, BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn} from 'typeorm';
 import { URL } from 'url';
 import { User } from './User';
 
@@ -17,6 +17,9 @@ export class Article extends BaseEntity {
 
     @ManyToOne(() => User, u => u.articles)
     author: User
+
+    @CreateDateColumn()
+    createdAt: Date;
 
     markdownUrl: string;
 

@@ -1,17 +1,14 @@
+import { Type } from '@sinclair/typebox';
 import { FastifyPluginAsync, FastifyPluginOptions, RouteHandlerMethod } from 'fastify';
+import { MoreThan } from 'typeorm';
 import { Article } from '../entity/Article';
+import { generatePaginatedOptions, paginate } from '../utils/paginate';
 
 const plugin: FastifyPluginAsync = async (server, opts: FastifyPluginOptions) => {
-    server.get('/', getAllArticles);
+    server.get<{Querystring: { page?: number }}>('/', { schema: { querystring: { page: Type.Number({ minimum: 1, default: 1 }) } } }, async (request, reply) => {
+        return paginate<Article>(request.query.page, { relations: ['author'] }, (o) => Article.findAndCount(o));
+
+    });
 }
-
-const getAllArticles: RouteHandlerMethod = async (request, reply) => {
-    const [ articles, count ] = await Article.findAndCount({ relations: ['author'] });
-
-    return {
-        data: articles,
-        count: count,
-    };
-};
 
 export default plugin;

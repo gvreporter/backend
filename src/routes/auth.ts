@@ -1,5 +1,7 @@
 import { Type } from '@sinclair/typebox';
+import { hash } from 'bcrypt';
 import { FastifyPluginAsync, RouteHandlerMethod } from 'fastify';
+import { Article } from '../entity/Article';
 import { User } from '../entity/User';
 
 const plugin: FastifyPluginAsync = async (server, opt) => {
