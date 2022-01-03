@@ -1,7 +1,21 @@
 import "reflect-metadata";
 import {createConnection} from "typeorm";
-import {User} from "./entity/User";
+import Fastify from 'fastify';
+import articles from './routes/articles';
 
-createConnection().then(async connection => {
+const server = Fastify({
+    logger: {
+        prettyPrint: true
+    }
+});
 
-}).catch(error => console.log(error));
+server.register(articles, { prefix: '/articles' });
+
+createConnection().then(async () => {
+    try {
+        await server.listen(8080);
+    } catch (err) {
+        server.log.error(err);
+        process.exit(1);
+    }
+});
